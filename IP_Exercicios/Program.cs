@@ -16,6 +16,7 @@ namespace IP_Exercicios
             Console.WriteLine("Para o Exercício 05 digite: 5");
             Console.WriteLine("Para o Exercício 06 digite: 6");
             Console.WriteLine("Para o Exercício 07 digite: 7");
+            Console.WriteLine("Para o Exercício 08 digite: 8");
 
             Console.Write("Opção: ");
             string numExercicio = Console.ReadLine();
@@ -69,7 +70,7 @@ namespace IP_Exercicios
                             {
                                 irs = bruto * 0.12;
                             }
-                            else if (bruto >= 1000 && bruto > 1500)
+                            else if (bruto >= 1000 && bruto < 1500)
                             {
                                 irs = bruto * 0.15;
                             }
@@ -78,7 +79,7 @@ namespace IP_Exercicios
                                 irs = bruto * 0.18;
                             }
 
-                            liquido = bruto - irs;
+                            liquido = bruto  - (irs + segSocial);
 
                             Console.WriteLine("Líquido: " + liquido);
 
@@ -86,6 +87,7 @@ namespace IP_Exercicios
                         }
                     case 3:
                         {
+                            // F=5x4x3x2x1
                             long num, fatorial = 1;
 
                             Console.Write("Número: ");
@@ -115,6 +117,7 @@ namespace IP_Exercicios
                             area = (comprimento * altura) / 2D;
 
                             Console.WriteLine("A área é igual a " + area);
+                            Console.WriteLine("");
 
                             break;
                         }
@@ -231,6 +234,107 @@ namespace IP_Exercicios
 
                             break;
                         }
+                    case 8:
+                        {
+                            /* 
+                             * 
+                             * Os sufixos Literais Reais é utilizado para atribuir ou comparar números diretamente no código (Hard Coded).
+                             * 
+                             * O sufixo especifica o tipo do número, eles servem para instruir ao compilador C# qual o formato literal do 
+                             * número, por exemplo 1000 pode ser considerado alguns tipos diferentes de número (inteiro, long, double).
+                             * 
+                             * Um problema pode ser o seguinte:
+                             * 
+                             * Imaginemos que uma empresa teve um lucro de 2.548.741,57 euros e precisa dividir para os seus grupos 
+                             * de investidores.
+                             *  
+                            */
+
+                            // ---------------------------------------------------------------------------------------------------------
+                            // Desenvolvimento
+                            // ---------------------------------------------------------------------------------------------------------
+
+                            /* 
+                             * Primeira observação. Sempre que for trabalhar com valores (dinheiro ou finanças), utilizem o decimal.
+                             * O tipo decimal é o ÚNICO tipo que tem a precisão adequada para evitar os erros críticos de arredondamento.
+                             * 
+                             * Para o exemplo abaixo:
+                             * 
+                             * decimal lucro = 2548741.57;
+                             * 
+                             * decimal lucro = 2548741.57; (Sem o sufixo "M") - Vai gerar erro, pois como expliquei em sala de aula, 
+                             * o compilador C#, sempre vai atribuir ao literal o tipo de dados conforme uma ordem preestabelecida.
+                             * (PDF IP-Aula_03-11_10, página 18)
+                             * 
+                             * Assim, se tirarmos o "M" o compilador do C# vai reconhecer o tipo do valor como double e será gerado um erro
+                             * de conversão de tipo.
+                             * 
+                             * Para o exemplo (decimal lucro = 2548741.57;), se descomentares irá ser noificado sober algum erro
+                             * de compilação e se colocares o rato sobre a marca vermelha de erro, será exibido:
+                             * 
+                             * Error -> Literal of type double cannot be implicitly converted to type 'decimal'; 
+                             * use an 'M' suffix to create a literal of this type.
+                             * 
+                             * Ou seja, o próprio sistema irá indicar o sufixo adequado.
+                             *
+                             *                            
+                             * Entretanto, se colocarmos o sufixo "M" ou "m", o sistema irá reconhecer o dado literal especificado.
+                             */
+
+                            decimal lucro = 2548741.57M;
+                            Console.WriteLine("");
+
+                            // Exibe para o utilizador o nome do tipo do número
+                            Console.WriteLine($"O tipo do valor 2548741.57 é: {(2548741.57).GetType().Name}");
+                            Console.WriteLine("");
+                            Console.WriteLine($"O tipo do valor 2548741.57M é: {(2548741.57m).GetType().Name}");                            
+                            Console.WriteLine("");
+
+                            /*
+                             * Agora, sobre o exercício 4 podemos observar o seguinte:
+                             * 
+                             * area = (comprimento * altura) / 2D;
+                             * 
+                             * A variável (area) é double.
+                             * A variável comprimento e altura são inteiros.
+                             * 
+                             * Ou seja, se dividirmos um inteiro por outro inteiro, o resultado será um inteiro, assim iremos desprezar as 
+                             * casas decimais.
+                             * 
+                             * Por isso que é preciso colocar o "D" ou "d" logo após o 2 (2D ou 2d). Pois assim o copilador entenderá que a
+                             * divisão deverá resultar em um double e as casas decimais irão ser consideradas.
+                             * 
+                             * Agora, imeginemos que a área seja 18 (9 x 2). Na divisão, por 3, mesmo sendo double ou inteiro, retornará
+                             * 6 como double
+                             * 
+                             * Entretato, imeginemos que a área seja 35 (5 x 7). Na divisão, por 3. Se não tiver sufixo, um valor será inteiro
+                             * (sem casas decimais) enquanto que o número com sufixo será com decimal (double)
+                             *
+                             */
+                            
+                            double area;
+
+                            area = (9 * 2) / 3;
+
+                            Console.WriteLine($"Resultado de area = (9 * 2) / 3 é: {area} e o tipo {area.GetType().Name}");
+                            Console.WriteLine("");
+
+                            area = (9 * 2) / 3D;
+
+                            Console.WriteLine($"Resultado de area = (9 * 2) / 3D é: {area} e o tipo {area.GetType().Name}");
+                            Console.WriteLine("");
+
+                            area = (5 * 7) / 3;
+
+                            Console.WriteLine($"Resultado de area = (5 * 7) / 3 é: {area} e o tipo {area.GetType().Name}");
+                            Console.WriteLine("");
+
+                            area = (5 * 7) / 3D;
+
+                            Console.WriteLine($"Resultado de area = (5 * 7) / 3D é: {area} e o tipo {area.GetType().Name}");
+                            Console.WriteLine("");
+                            break;
+                        }
                     default:
                         {
                             Console.WriteLine("Exercício inexistente!");
@@ -242,7 +346,7 @@ namespace IP_Exercicios
             {
                 Console.WriteLine("Opção incorreta! Tente novamente");
             }
-
+            
             Console.Read();
         }
     }
