@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 
 namespace IP_Exercicios
 {
@@ -40,48 +41,23 @@ namespace IP_Exercicios
                 {
                     case 1:
                         {
-                            int comprimento, altura, area;
+                            int comprimento, altura;
                             Console.Write("Comprimento: ");
                             comprimento = int.Parse(Console.ReadLine());
 
                             Console.Write("Altura: ");
                             altura = int.Parse(Console.ReadLine());
 
-                            area = comprimento * altura;
+                            var area = CalculoDaArea(altura, comprimento);
 
-                            Console.WriteLine("Área: " + area);
+                            // continuação do código
 
                             break;
                         }
                     case 2:
                         {
-                            double bruto, segSocial, irs, liquido;
-
                             Console.Write("Salário bruto: ");
-                            bruto = double.Parse(Console.ReadLine());
-
-                            segSocial = bruto * 0.2;
-
-                            if (bruto < 500)
-                            {
-                                irs = 0;
-                            }
-                            else if (bruto >= 500 && bruto < 1000)
-                            {
-                                irs = bruto * 0.12;
-                            }
-                            else if (bruto >= 1000 && bruto < 1500)
-                            {
-                                irs = bruto * 0.15;
-                            }
-                            else
-                            {
-                                irs = bruto * 0.18;
-                            }
-
-                            liquido = bruto  - (irs + segSocial);
-
-                            Console.WriteLine("Líquido: " + liquido);
+                            Console.WriteLine("Líquido: " + CalculoSalarioLiquido(double.Parse(Console.ReadLine())));
 
                             break;
                         }
@@ -348,6 +324,51 @@ namespace IP_Exercicios
             }
             
             Console.Read();
+        }
+
+        /// <summary>
+        /// CalculoDaArea
+        /// </summary>
+        /// <param name="altura">Altura do retângulo</param>
+        /// <param name="comprimento">Comprimento do retângulo</param>
+        public static int CalculoDaArea(int altura, int comprimento)
+        {
+            var area = comprimento * altura;
+
+            Console.WriteLine("Área: " + area);
+
+            return area;
+        }
+
+        /// <summary>
+        /// Calculo do Salario Liquido
+        /// </summary>
+        /// <param name="salarioBruto">Salário bruto do funcionário</param>
+        /// <returns></returns>
+        public static double CalculoSalarioLiquido(double salarioBruto)
+        {
+            double segSocial, irs;
+
+            segSocial = salarioBruto * 0.2;
+
+            if (salarioBruto < 500)
+            {
+                irs = 0;
+            }
+            else if (salarioBruto >= 500 && salarioBruto < 1000)
+            {
+                irs = salarioBruto * 0.12;
+            }
+            else if (salarioBruto >= 1000 && salarioBruto < 1500)
+            {
+                irs = salarioBruto * 0.15;
+            }
+            else
+            {
+                irs = salarioBruto * 0.18;
+            }
+
+            return salarioBruto - (irs + segSocial);
         }
     }
 }
